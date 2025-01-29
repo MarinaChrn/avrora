@@ -1,59 +1,61 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, Send, Mic } from "lucide-react";
+import "./App.css";
+import logo from "./images/logo-avrora.png";
+import girl from "./images/girl-avrora.png";
 
 // Define styles object
 const styles = {
   pageContainer: {
     minHeight: "100vh",
-    backgroundColor: "#fef9c3",
+    backgroundColor: "#ffffff",
     padding: "1rem",
   },
   contentContainer: {
-    maxWidth: "42rem",
+    maxWidth: "1440px",
     margin: "0 auto",
+    display: "flex",
+    paddingTop: "65px",
+    paddingBottom: "101px",
   },
   logoContainer: {
     backgroundColor: "white",
     borderRadius: "9999px",
     padding: "1rem",
     display: "inline-block",
+    marginLeft: "184px",
+    marginBottom: "101px",
   },
   logo: {
-    height: "3rem",
+    width: "350px",
+    height: "122px",
   },
   assistantIntro: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "1rem",
     marginTop: "1.5rem",
   },
   avatarContainer: {
-    backgroundColor: "#fde047",
-    borderRadius: "9999px",
     padding: "0.5rem",
   },
   avatarLarge: {
-    width: "6rem",
-    height: "6rem",
-    borderRadius: "9999px",
     overflow: "hidden",
   },
   avatarSmall: {
-    width: "2rem",
-    height: "2rem",
     borderRadius: "9999px",
     overflow: "hidden",
     marginRight: "0.5rem",
   },
   avatarImg: {
-    width: "100%",
-    height: "100%",
+    width: "611px",
+    height: "460px",
     objectFit: "cover",
   },
   introText: {
-    fontSize: "1.25rem",
-    fontWeight: 500,
-    marginTop: "1rem",
+    fontWeight: 700,
+    fontSize: "36px",
+    letterSpacing: "0.08em",
+    textAlign: "center",
+    color: "#000",
+    marginTop: "79px",
   },
   questionsContainer: {
     marginTop: "2rem",
@@ -179,48 +181,43 @@ export const ChatStartPage = ({ onStartChat }) => {
   return (
     <div style={styles.pageContainer}>
       <div style={styles.contentContainer}>
-        <div style={styles.logoContainer}>
-          <img
-            src="../src/images/logo-avrora.png"
-            alt="Аврора мультимаркет"
-            style={styles.logo}
-          />
-        </div>
+        <div>
+          <div style={styles.logoContainer}>
+            <img src={logo} alt="Аврора мультимаркет" style={styles.logo} />
+          </div>
 
-        <div style={styles.assistantIntro}>
-          <div style={styles.avatarContainer}>
-            <div style={styles.avatarLarge}>
-              <img
-                src="/api/placeholder/96/96"
-                alt="Assistant"
-                style={styles.avatarImg}
-              />
+          <div style={styles.assistantIntro}>
+            <div style={styles.avatarContainer}>
+              <div style={styles.avatarLarge}>
+                <img src={girl} alt="Assistant" style={styles.avatarImg} />
+              </div>
+            </div>
+            <div style={styles.introText}>
+              Привіт, я Ваш асистент, давайте поспілкуємось!
             </div>
           </div>
-          <div style={styles.introText}>
-            Привіт, я Ваш асистент, давайте поспілкуємось!
-          </div>
         </div>
-
-        <div style={styles.questionsContainer}>
-          <div style={styles.introText}>
-            Розпочніть чат з потрібним вам запитом
+        <div>
+          <div style={styles.questionsContainer}>
+            <div style={styles.introText}>
+              Розпочніть чат з потрібним вам запитом
+            </div>
+            {predefinedQuestions.map((question, index) => (
+              <button
+                key={index}
+                onClick={() => onStartChat(question)}
+                style={styles.questionButton}
+              >
+                <span>{question}</span>
+                <ChevronRight />
+              </button>
+            ))}
           </div>
-          {predefinedQuestions.map((question, index) => (
-            <button
-              key={index}
-              onClick={() => onStartChat(question)}
-              style={styles.questionButton}
-            >
-              <span>{question}</span>
-              <ChevronRight />
-            </button>
-          ))}
-        </div>
 
-        <button onClick={() => onStartChat()} style={styles.startChatButton}>
-          Перейти до чату
-        </button>
+          <button onClick={() => onStartChat()} style={styles.startChatButton}>
+            Перейти до чату
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -315,11 +312,7 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
     <div style={styles.chatContainer}>
       <div style={styles.chatHeader}>
         <div style={styles.logoContainer}>
-          <img
-            src="../src/images/logo-avrora.png"
-            alt="Аврора мультимаркет"
-            style={styles.logo}
-          />
+          <img src={logo} alt="Аврора мультимаркет" style={styles.logo} />
         </div>
         <button onClick={onExit} style={styles.endChatButton}>
           Завершити чат

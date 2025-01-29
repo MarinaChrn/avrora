@@ -1,9 +1,16 @@
-/* Основные стили */
+
+:root {
+  --font-family: "Segoe UI", sans-serif;
+  --background-color: #fef9c3;
+  --primary-color: #dc2626;
+  --secondary-color: #fde047;
+}
+
 body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #fef9c3;
 }
 
 /* Контейнеры */
