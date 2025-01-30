@@ -4,64 +4,122 @@ import "./App.css";
 import logo from "./images/logo-avrora.png";
 import girl from "./images/girl-avrora.png";
 
-// Define styles object
+// Стилі
 const styles = {
   pageContainer: {
-    minHeight: "100vh",
     backgroundColor: "#ffffff",
-    padding: "1rem",
+    padding: "0",
+    minHeight: "100vh",
+    width: "100%",
   },
   contentContainer: {
-    maxWidth: "1440px",
+    maxWidth: "100vw",
     margin: "0 auto",
     display: "flex",
-    paddingTop: "65px",
-    paddingBottom: "101px",
+    justifyContent: "space-between",
+    paddingTop: "0",
+    paddingBottom: "0",
   },
   logoContainer: {
     backgroundColor: "white",
-    borderRadius: "9999px",
-    padding: "1rem",
-    display: "inline-block",
-    marginLeft: "184px",
-    marginBottom: "101px",
+    borderRadius: "24px",
+    padding: "1rem 5rem 2rem 5rem",
+  },
+  logoPageContainer: {
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    paddingTop: "65px",
   },
   logo: {
     width: "350px",
     height: "122px",
   },
   assistantIntro: {
-    marginTop: "1.5rem",
+    marginTop: "70px",
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+  },
+  chatBoxContainer: {
+    backgroundColor: "#FCED96",
+    height: "100vh",
+    width: "50%",
+  },
+  assistantContainer: {
+    marginTop: "-40px",
+  },
+  assistentSpan: {
+    backgroundColor: "#E20712",
+    width: "47px",
+    height: "112px",
+    marginRight: "20px",
+    borderRadius: "10px 0 0 10px",
+  },
+  assistantLabel: {
+    fontWeight: "700",
+    color: "#E5030F",
+    fontSize: "32px",
+  },
+  assistantMessage: {
+    backgroundColor: "white",
+    borderRadius: "9px",
+    minWidth: "362px",
+    maxWidth: "820px",
+    minHeight: "112px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "-15px",
+  },
+  assistantMess: {
+    fontWeight: "500",
+    fontSize: "24px",
+    padding: "10px 25px",
   },
   avatarContainer: {
-    padding: "0.5rem",
+    padding: "0.1rem",
+    width: "100%",
   },
   avatarLarge: {
-    overflow: "hidden",
+    paddingRight: "50px",
+    display: "block",
+    margin: "0 auto",
+    width: "60%",
   },
   avatarSmall: {
-    borderRadius: "9999px",
     overflow: "hidden",
-    marginRight: "0.5rem",
+    marginRight: "2rem",
+    width: "12.5rem",
+    height: "auto",
   },
   avatarImg: {
-    width: "611px",
-    height: "460px",
-    objectFit: "cover",
+    width: "100%",
+    height: "auto",
   },
   introText: {
     fontWeight: 700,
     fontSize: "36px",
     letterSpacing: "0.08em",
     textAlign: "center",
+    width: "100%",
     color: "#000",
-    marginTop: "79px",
+    marginTop: "46px",
+    marginBottom: "47px",
+    display: "flex",
+    justifyContent: "center",
+  },
+  introTextParagraph: {
+    width: "50%",
   },
   questionsContainer: {
     marginTop: "2rem",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
+    padding: "30px",
   },
   questionButton: {
     width: "100%",
@@ -86,13 +144,15 @@ const styles = {
     cursor: "pointer",
   },
   chatContainer: {
-    minHeight: "100vh",
-    backgroundColor: "#fef9c3",
+    height: "100vh",
+    width: "100%",
+    background: "linear-gradient(to bottom, #FFFFFF, #FCED96)",
+    position: "fixed",
     display: "flex",
     flexDirection: "column",
   },
   chatHeader: {
-    backgroundColor: "white",
+    backgroundColor: "#FFDD00",
     padding: "1rem",
     display: "flex",
     justifyContent: "space-between",
@@ -101,14 +161,20 @@ const styles = {
   endChatButton: {
     backgroundColor: "#dc2626",
     color: "white",
-    padding: "0.5rem 1rem",
+    width: "260px",
+    height: "100px",
     borderRadius: "0.5rem",
+    fontSize: "2rem",
     border: "none",
     cursor: "pointer",
   },
+  messageBlock: {
+    display: "flex",
+    flexDirection: "row",
+  },
   messagesContainer: {
     flex: 1,
-    padding: "1rem",
+    padding: "5rem 20rem",
     overflowY: "auto",
   },
   messageWrapper: {
@@ -171,6 +237,12 @@ const styles = {
   },
 };
 
+// Генерація унікального user_id
+const generateUserId = () => {
+  return Math.random().toString().slice(2, 11);
+};
+
+// Компонент стартової сторінки
 export const ChatStartPage = ({ onStartChat }) => {
   const predefinedQuestions = [
     "Мені потрібен подарунок на День Матері",
@@ -181,7 +253,7 @@ export const ChatStartPage = ({ onStartChat }) => {
   return (
     <div style={styles.pageContainer}>
       <div style={styles.contentContainer}>
-        <div>
+        <div style={styles.logoPageContainer}>
           <div style={styles.logoContainer}>
             <img src={logo} alt="Аврора мультимаркет" style={styles.logo} />
           </div>
@@ -193,12 +265,23 @@ export const ChatStartPage = ({ onStartChat }) => {
               </div>
             </div>
             <div style={styles.introText}>
-              Привіт, я Ваш асистент, давайте поспілкуємось!
+              <p style={styles.introTextParagraph}>
+                Привіт, я Ваш асистент, давайте поспілкуємось!
+              </p>
             </div>
           </div>
         </div>
-        <div>
+        <div style={styles.chatBoxContainer}>
           <div style={styles.questionsContainer}>
+            <div style={styles.assistantContainer}>
+              <p style={styles.assistantLabel}>Аврора</p>
+              <div style={styles.assistantMessage}>
+                <span style={styles.assistentSpan}></span>
+                <span style={styles.assistantMess}>
+                  Чим я можу Вам допомогти?
+                </span>
+              </div>
+            </div>
             <div style={styles.introText}>
               Розпочніть чат з потрібним вам запитом
             </div>
@@ -223,21 +306,83 @@ export const ChatStartPage = ({ onStartChat }) => {
   );
 };
 
-export const ChatPage = ({ initialMessage = "", onExit }) => {
-  const [messages, setMessages] = useState([
-    { text: "Привіт! Чим я можу Вам допомогти?", sender: "assistant" },
-    ...(initialMessage
+export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
+  const [messages, setMessages] = useState(() => {
+    // Початковий стан без привітання, якщо є initialMessage
+    return initialMessage
       ? [
+          { text: "Привіт! Чим я можу Вам допомогти?", sender: "assistant" },
           { text: initialMessage, sender: "user" },
-          { text: "Звісно! Який товар вас цікавить?", sender: "assistant" },
         ]
-      : []),
-  ]);
+      : [{ text: "Привіт! Чим я можу Вам допомогти?", sender: "assistant" }];
+  });
+
   const [input, setInput] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const [inactivityTimer, setInactivityTimer] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const recognition = useRef(null);
+  const messagesEndRef = useRef(null);
+  const abortControllerRef = useRef(new AbortController());
 
+  // Відправка початкового повідомлення (якщо є)
+  useEffect(() => {
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    const sendInitialMessage = async () => {
+      if (!initialMessage) return;
+
+      try {
+        const response = await fetch("http://20.215.194.147:8000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: userId,
+            input: initialMessage,
+          }),
+          signal: controller.signal,
+        });
+
+        const data = await response.json();
+        setMessages((prev) => [
+          ...prev,
+          { text: data.response, sender: "assistant" },
+        ]);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Error:", error);
+          setMessages((prev) => [
+            ...prev,
+            { text: "Не вдалося обробити запит", sender: "assistant" },
+          ]);
+        }
+      }
+    };
+
+    sendInitialMessage();
+
+    return () => controller.abort();
+  }, [initialMessage, userId]);
+  // Функція для переключення голосового вводу
+  const toggleRecording = () => {
+    if (!recognition.current) return;
+
+    if (isRecording) {
+      recognition.current.stop();
+    } else {
+      recognition.current.start();
+    }
+    setIsRecording(!isRecording);
+  };
+
+  // Автоскролл
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToBottom, [messages]);
+
+  // Ініціалізація голосового вводу
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
       recognition.current = new window.webkitSpeechRecognition();
@@ -257,55 +402,53 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const resetTimer = () => {
-      if (inactivityTimer) clearTimeout(inactivityTimer);
-      setInactivityTimer(setTimeout(() => onExit(), 180000));
-    };
+  // Відправка повідомлення
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading) return;
 
-    const events = [
-      "mousedown",
-      "mousemove",
-      "keypress",
-      "scroll",
-      "touchstart",
-    ];
-    events.forEach((event) => document.addEventListener(event, resetTimer));
-    resetTimer();
+    setIsLoading(true);
+    const userMessage = { text: input, sender: "user" };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
 
-    return () => {
-      if (inactivityTimer) clearTimeout(inactivityTimer);
-      events.forEach((event) =>
-        document.removeEventListener(event, resetTimer)
-      );
-    };
-  }, [onExit, inactivityTimer]);
+    try {
+      const response = await fetch("http://20.215.194.147:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: userId,
+          input: input,
+        }),
+      });
 
-  const toggleRecording = () => {
-    if (!recognition.current) return;
-
-    if (isRecording) {
-      recognition.current.stop();
-    } else {
-      recognition.current.start();
-    }
-    setIsRecording(!isRecording);
-  };
-
-  const sendMessage = () => {
-    if (!input.trim()) return;
-
-    setMessages([...messages, { text: input, sender: "user" }]);
-    setTimeout(() => {
+      const data = await response.json();
       setMessages((prev) => [
         ...prev,
-        {
-          text: "Дякую за ваше повідомлення! Чим ще можу допомогти?",
-          sender: "assistant",
-        },
+        { text: data.response, sender: "assistant" },
       ]);
-    }, 1000);
-    setInput("");
+    } catch (error) {
+      console.error("Error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { text: "Помилка з'єднання з сервером", sender: "assistant" },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Оновлена функція очищення історії
+  const handleExit = async () => {
+    try {
+      await fetch("http://20.215.194.147:8000/clear_history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: userId }),
+      });
+    } catch (error) {
+      console.error("Помилка очищення історії:", error);
+    }
+    onExit();
   };
 
   return (
@@ -314,45 +457,52 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
         <div style={styles.logoContainer}>
           <img src={logo} alt="Аврора мультимаркет" style={styles.logo} />
         </div>
-        <button onClick={onExit} style={styles.endChatButton}>
+        <button onClick={handleExit} style={styles.endChatButton}>
           Завершити чат
         </button>
       </div>
 
       <div style={styles.messagesContainer}>
-        <div style={styles.contentContainer}>
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              style={{
-                ...styles.messageWrapper,
-                ...(message.sender === "user"
-                  ? styles.messageUser
-                  : styles.messageAssistant),
-              }}
-            >
-              {message.sender === "assistant" && (
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            style={{
+              ...styles.messageWrapper,
+              ...(message.sender === "user"
+                ? styles.messageUser
+                : styles.messageAssistant),
+            }}
+          >
+            {message.sender === "assistant" && (
+              <div style={styles.messageBlock}>
                 <div style={styles.avatarSmall}>
-                  <img
-                    src="/api/placeholder/32/32"
-                    alt="Assistant"
-                    style={styles.avatarImg}
-                  />
+                  <img src={girl} alt="Assistant" style={styles.avatarImg} />
                 </div>
-              )}
-              <div
-                style={{
-                  ...styles.messageBubble,
-                  ...(message.sender === "user"
-                    ? styles.messageBubbleUser
-                    : styles.messageBubbleAssistant),
-                }}
-              >
-                {message.text}
+                <div style={styles.assistantContainer}>
+                  <p style={styles.assistantLabel}>Аврора</p>
+                  <div style={styles.assistantMessage}>
+                    <span style={styles.assistantMess}>{message.text}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            )}
+
+            {message.sender === "user" && (
+              <div>
+                <p>Ви</p>
+                <div
+                  style={{
+                    ...styles.messageBubble,
+                    ...styles.messageBubbleUser,
+                  }}
+                >
+                  <span style={styles.assistantMess}>{message.text}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
       </div>
 
       <div style={styles.inputContainer}>
@@ -364,6 +514,7 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
             onKeyPress={(e) => e.key === "Enter" && sendMessage()}
             style={styles.chatInput}
             placeholder="Введіть повідомлення..."
+            disabled={isLoading}
           />
           <button
             onClick={toggleRecording}
@@ -373,11 +524,16 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
                 ? styles.voiceButtonRecording
                 : styles.voiceButtonIdle),
             }}
+            disabled={isLoading}
           >
-            <Mic />
+            <Mic size={20} />
           </button>
-          <button onClick={sendMessage} style={styles.sendButton}>
-            <Send />
+          <button
+            onClick={sendMessage}
+            style={styles.sendButton}
+            disabled={isLoading}
+          >
+            <Send size={20} />
           </button>
         </div>
       </div>
@@ -385,9 +541,19 @@ export const ChatPage = ({ initialMessage = "", onExit }) => {
   );
 };
 
+// Основний компонент додатка
 const App = () => {
   const [page, setPage] = useState("start");
   const [initialMessage, setInitialMessage] = useState("");
+  const [userId] = useState(() => {
+    // Відновлюємо user_id з localStorage або генеруємо новий
+    const savedUserId = localStorage.getItem("avrora_user_id");
+    if (savedUserId) return savedUserId;
+
+    const newUserId = generateUserId();
+    localStorage.setItem("avrora_user_id", newUserId);
+    return newUserId;
+  });
 
   const handleStartChat = (message) => {
     setInitialMessage(message || "");
@@ -404,7 +570,11 @@ const App = () => {
       {page === "start" ? (
         <ChatStartPage onStartChat={handleStartChat} />
       ) : (
-        <ChatPage initialMessage={initialMessage} onExit={handleExit} />
+        <ChatPage
+          initialMessage={initialMessage}
+          onExit={handleExit}
+          userId={userId}
+        />
       )}
     </div>
   );
