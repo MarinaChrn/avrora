@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronRight, Send, Mic } from "lucide-react";
 import "./App.css";
 import logo from "./images/logo-avrora.png";
+import logo2 from "./images/logo-avrora-2.png";
 import girl from "./images/girl-avrora.png";
+import avatar from "./images/avatar.png";
+import decor1 from "./images/decor1.png";
+import decor2 from "./images/decor2.png";
 
 // Стилі
 const styles = {
@@ -17,7 +21,7 @@ const styles = {
     margin: "0 auto",
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: "0",
+    paddingTop: "0px",
     paddingBottom: "0",
   },
   logoContainer: {
@@ -30,14 +34,14 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
-    paddingTop: "65px",
+    paddingTop: "0px",
   },
   logo: {
     width: "350px",
     height: "122px",
   },
   assistantIntro: {
-    marginTop: "70px",
+    marginTop: "40px",
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
@@ -45,15 +49,39 @@ const styles = {
   chatBoxContainer: {
     backgroundColor: "#FCED96",
     height: "100vh",
-    width: "50%",
+    width: "45%",
+    padding: "0 30px",
   },
   assistantContainer: {
     marginTop: "-40px",
   },
+  assistantContainer2: {
+    marginTop: "-40px",
+  },
+  assistantLabel2: {
+    fontWeight: "700",
+    color: "#E5030F",
+    fontSize: "32px",
+  },
+  assistantMessage2: {
+    backgroundColor: "white",
+    borderRadius: "9px",
+    width: "280px",
+    height: "90px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "-15px",
+  },
+  assistantMess2: {
+    fontWeight: "500",
+    fontSize: "24px",
+  },
   assistentSpan: {
     backgroundColor: "#E20712",
-    width: "47px",
-    height: "112px",
+    width: "25px",
+    height: "90px",
     marginRight: "20px",
     borderRadius: "10px 0 0 10px",
   },
@@ -67,7 +95,7 @@ const styles = {
     borderRadius: "9px",
     minWidth: "362px",
     maxWidth: "820px",
-    minHeight: "112px",
+    minHeight: "80px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -92,7 +120,7 @@ const styles = {
   avatarSmall: {
     overflow: "hidden",
     marginRight: "2rem",
-    width: "12.5rem",
+    width: "100px",
     height: "auto",
   },
   avatarImg: {
@@ -101,59 +129,100 @@ const styles = {
   },
   introText: {
     fontWeight: 700,
-    fontSize: "36px",
+    fontSize: "32px",
     letterSpacing: "0.08em",
     textAlign: "center",
     width: "100%",
     color: "#000",
-    marginTop: "46px",
+    marginTop: "20px",
     marginBottom: "47px",
     display: "flex",
     justifyContent: "center",
   },
+  introText2: {
+    fontWeight: 700,
+    fontSize: "24px",
+    letterSpacing: "0.08em",
+    textAlign: "left",
+    width: "100%",
+    color: "#000",
+    marginTop: "20px",
+    marginBottom: "20px",
+  },
   introTextParagraph: {
-    width: "50%",
+    width: "70%",
   },
   questionsContainer: {
-    marginTop: "2rem",
+    marginTop: "20px",
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
     padding: "30px",
   },
+  questionButtonCont: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
   questionButton: {
-    width: "100%",
+    width: "70%",
     backgroundColor: "white",
     borderRadius: "0.5rem",
-    padding: "1rem",
+    padding: "1.2rem",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     border: "none",
     cursor: "pointer",
+    fontSize: "22px",
+    fontWeight: "500",
     transition: "background-color 0.2s",
   },
   startChatButton: {
-    width: "100%",
+    width: "60%",
+    height: "70px",
     backgroundColor: "#dc2626",
     color: "white",
     borderRadius: "0.5rem",
     padding: "1rem",
-    marginTop: "1.5rem",
+    margin: "0 auto",
+    marginTop: "0.7rem",
     border: "none",
     cursor: "pointer",
+    alignItems: "center",
+    textAlign: "center",
+    fontSize: "24px",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
   },
+  ChatButtonCont: {
+    display: "flex",
+  },
+
   chatContainer: {
     height: "100vh",
     width: "100%",
-    background: "linear-gradient(to bottom, #FFFFFF, #FCED96)",
+    background: "linear-gradient(to bottom, #FFFFFF, #FFF8CC)",
     position: "fixed",
     display: "flex",
     flexDirection: "column",
   },
+  decoration1: {
+    position: "fixed",
+    left: "0",
+    bottom: "0",
+  },
+  decoration2: {
+    position: "fixed",
+    right: "0",
+    bottom: "0",
+  },
+  logoContainer2: {},
+  logo2: {
+    height: "80px",
+  },
   chatHeader: {
     backgroundColor: "#FFDD00",
-    padding: "1rem",
+    padding: "20px 310px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -161,12 +230,13 @@ const styles = {
   endChatButton: {
     backgroundColor: "#dc2626",
     color: "white",
-    width: "260px",
-    height: "100px",
+    width: "200px",
+    height: "60px",
     borderRadius: "0.5rem",
-    fontSize: "2rem",
+    fontSize: "18px",
     border: "none",
     cursor: "pointer",
+    fontWeight: "700",
   },
   messageBlock: {
     display: "flex",
@@ -183,6 +253,24 @@ const styles = {
   },
   messageUser: {
     justifyContent: "flex-end",
+  },
+  userLabel: {
+    fontWeight: "700",
+    color: "#FFDD00",
+    fontSize: "32px",
+    textAlign: "right",
+  },
+  userMessage: {
+    backgroundColor: "#FFDD00",
+    borderRadius: "9px",
+    minWidth: "362px",
+    maxWidth: "820px",
+    minHeight: "80px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginTop: "-15px",
   },
   messageAssistant: {
     justifyContent: "flex-start",
@@ -201,22 +289,48 @@ const styles = {
   },
   inputContainer: {
     backgroundColor: "white",
+    width: "90%",
+    borderRadius: "20px 20px 0 0",
     padding: "1rem",
+    zIndex: "5",
+    margin: "0 auto",
+    height: "100px",
   },
   inputWrapper: {
-    maxWidth: "42rem",
+    maxWidth: "900px",
     margin: "0 auto",
     display: "flex",
-    gap: "0.5rem",
+    gap: "20px",
+    padding: "30px 20px",
+    justifyContent: "space-between",
   },
   chatInput: {
     flex: 1,
-    border: "1px solid #e5e7eb",
-    borderRadius: "0.5rem",
-    padding: "0.5rem 1rem",
+    border: "none", // Убираем все границы
+    borderBottom: "2px solid #e5e7eb", // Добавляем нижнюю линию
+    borderRadius: "0", // Обнуляем скругление
+    padding: "10px 15px", // Корректируем отступы
+    fontSize: "24px",
+    backgroundColor: "transparent", // Прозрачный фон
+    outline: "none",
+    transition: "all 0.2s ease",
+    maxWidth: "800px",
+    "&:focus": {
+      borderBottom: "2px solid #6366f1", // Меняем только нижнюю границу
+      backgroundColor: "rgba(99, 102, 241, 0.05)", // Легкий фон при фокусе
+    },
+
+    "&::placeholder": {
+      color: "#9ca3af",
+    },
+
+    "&:disabled": {
+      borderBottom: "2px solid #d1d5db", // Серый цвет линии
+      backgroundColor: "rgba(243, 244, 246, 0.5)",
+    },
   },
   voiceButton: {
-    padding: "0.5rem",
+    padding: "10px 15px",
     borderRadius: "0.5rem",
     border: "none",
     cursor: "pointer",
@@ -229,8 +343,8 @@ const styles = {
     backgroundColor: "#e5e7eb",
   },
   sendButton: {
-    backgroundColor: "#fbbf24",
-    padding: "0.5rem",
+    backgroundColor: "#FFDD00",
+    padding: "10px 15px",
     borderRadius: "0.5rem",
     border: "none",
     cursor: "pointer",
@@ -273,33 +387,40 @@ export const ChatStartPage = ({ onStartChat }) => {
         </div>
         <div style={styles.chatBoxContainer}>
           <div style={styles.questionsContainer}>
-            <div style={styles.assistantContainer}>
-              <p style={styles.assistantLabel}>Аврора</p>
-              <div style={styles.assistantMessage}>
+            <div style={styles.assistantContainer2}>
+              <p style={styles.assistantLabel2}>Аврора</p>
+              <div style={styles.assistantMessage2}>
                 <span style={styles.assistentSpan}></span>
-                <span style={styles.assistantMess}>
+                <span style={styles.assistantMess2}>
                   Чим я можу Вам допомогти?
                 </span>
               </div>
             </div>
-            <div style={styles.introText}>
-              Розпочніть чат з потрібним вам запитом
+            <div style={styles.introText2}>
+              Розпочніть чат з потрібним <br />
+              Вам запитом
             </div>
             {predefinedQuestions.map((question, index) => (
-              <button
-                key={index}
-                onClick={() => onStartChat(question)}
-                style={styles.questionButton}
-              >
-                <span>{question}</span>
-                <ChevronRight />
-              </button>
+              <div style={styles.questionButtonCont}>
+                <button
+                  key={index}
+                  onClick={() => onStartChat(question)}
+                  style={styles.questionButton}
+                >
+                  <span>{question}</span>
+                  <ChevronRight />
+                </button>
+              </div>
             ))}
           </div>
-
-          <button onClick={() => onStartChat()} style={styles.startChatButton}>
-            Перейти до чату
-          </button>
+          <div style={styles.ChatButtonCont}>
+            <button
+              onClick={() => onStartChat()}
+              style={styles.startChatButton}
+            >
+              Перейти до чату
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -454,8 +575,8 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
   return (
     <div style={styles.chatContainer}>
       <div style={styles.chatHeader}>
-        <div style={styles.logoContainer}>
-          <img src={logo} alt="Аврора мультимаркет" style={styles.logo} />
+        <div style={styles.logoContainer2}>
+          <img src={logo2} alt="Аврора мультимаркет" style={styles.logo2} />
         </div>
         <button onClick={handleExit} style={styles.endChatButton}>
           Завершити чат
@@ -463,6 +584,10 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
       </div>
 
       <div style={styles.messagesContainer}>
+        <div>
+          <img src={decor1} alt="" style={styles.decoration1} />
+          <img src={decor2} alt="" style={styles.decoration2} />
+        </div>
         {messages.map((message, index) => (
           <div
             key={index}
@@ -476,7 +601,7 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
             {message.sender === "assistant" && (
               <div style={styles.messageBlock}>
                 <div style={styles.avatarSmall}>
-                  <img src={girl} alt="Assistant" style={styles.avatarImg} />
+                  <img src={avatar} alt="Assistant" style={styles.avatarImg} />
                 </div>
                 <div style={styles.assistantContainer}>
                   <p style={styles.assistantLabel}>Аврора</p>
@@ -489,13 +614,8 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
 
             {message.sender === "user" && (
               <div>
-                <p>Ви</p>
-                <div
-                  style={{
-                    ...styles.messageBubble,
-                    ...styles.messageBubbleUser,
-                  }}
-                >
+                <p style={styles.userLabel}>Ви</p>
+                <div style={styles.userMessage}>
                   <span style={styles.assistantMess}>{message.text}</span>
                 </div>
               </div>
