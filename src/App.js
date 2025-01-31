@@ -454,7 +454,7 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
       if (!initialMessage) return;
 
       try {
-        const response = await fetch("http://20.215.194.147:8000/chat", {
+        const response = await fetch("https://20.215.194.147:8000/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -533,7 +533,7 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
     setInput("");
 
     try {
-      const response = await fetch("http://20.215.194.147:8000/chat", {
+      const response = await fetch("https://20.215.194.147:8000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -561,7 +561,7 @@ export const ChatPage = ({ initialMessage = "", onExit, userId }) => {
   // Оновлена функція очищення історії
   const handleExit = async () => {
     try {
-      await fetch("http://20.215.194.147:8000/clear_history", {
+      await fetch("https://20.215.194.147:8000/clear_history", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
